@@ -14,8 +14,7 @@ def navbar_page(request):
 
 
 def departments_page(request):
-
-    return render(request, 'urls_and_views_app/departments.html',)
+    return render(request, 'urls_and_views_app/departments.html', )
 
 
 def departments_page_group(request, group_id):
@@ -29,3 +28,6 @@ def departments_page_group(request, group_id):
     context = {'group_name': group_name}
 
     return render(request, 'urls_and_views_app/departments.html', context)
+
+def redirect_page(request):
+    return redirect('home')
