@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_urls_views_demo',
+    'django_urls_views_demo.urls_and_views_app',
 ]
 
 MIDDLEWARE = [
