@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
 
 # Create your views here.
@@ -29,5 +29,10 @@ def departments_page_group(request, group_id):
 
     return render(request, 'urls_and_views_app/departments.html', context)
 
+
 def redirect_page(request):
     return redirect('home')
+
+
+def error_page(request):
+    raise Http404
