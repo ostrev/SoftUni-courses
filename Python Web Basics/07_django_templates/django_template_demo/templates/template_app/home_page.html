@@ -1,0 +1,71 @@
+{% extends "template_app/base.html" %}
+
+{% load filters %}
+{% load tags %}
+
+
+{% block content %}
+
+    <h1>Template variables</h1>
+    <p>{{ students.2 }}</p>
+    <h1>Template filters</h1>
+    <p>Student name is {{ students.2 }} and there are {{ students.2|length }} letters</p>
+    <h1>Template tags</h1>
+
+    {% for student in students %}
+        <ul>
+        <li>{{ student }}</li>
+        </ul>
+    {% empty %}
+        <li>There is no students in this list</li>
+    {% endfor %}
+    <hr>
+    <div>
+        <h1>This is home page</h1>
+    <a href="{% url 'departments page'%}">Go to department page</a>
+    </div>
+
+    <br>
+    <section>
+        <h3>Comments</h3>
+        {# This is a comment for DEVS #}
+        {% comment %}
+         multiline
+         comment
+        {% endcomment %}
+        <!-- HTML comment (visible for user) -->
+        <div>{{ csrf_token }}</div>
+        <!-- visible token) -->
+        <div>
+            {% csrf_token %}
+        </div>
+    </section>
+    <br>
+    <div>
+        <h1>Custom filters</h1>
+        <div>No filter: {{ students }}</div>
+        <div>With custom filter (long name): {{ students|find_long_name }} </div>
+    </div>
+    <br>
+    <div>
+        <h1>Custom template tags (helper functions)</h1>
+        <h3>simple_tag => Processes the data and returns a string</h3>
+            <ul class="group">
+                {% for student in students %}
+                    <li class="group">{% show_student_name student %}</li>
+                {% endfor %}
+            </ul>
+        <br>
+        <h3>inclusion_tag => Processes the data and returns a rendered template</h3>
+            <div>
+                <br>
+                <ul>
+                    {% for car in car_obj %}
+                        <li>{% car_inclusion_tag car %}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+    </div>
+{% endblock %}
+
+
