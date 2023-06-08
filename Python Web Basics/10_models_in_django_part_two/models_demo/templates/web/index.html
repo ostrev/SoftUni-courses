@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="display: flex; justify-content: space-between; padding: 100px">
+    <div>
+        <h2>In memory</h2>
+        <ul>
+            {% for employee in employees %}
+                <li>
+                    <div>
+                        {{ employee.first_name }} {{ employee.last_name }}
+                    </div>
+                    <div>
+                        {{ employee.department.name }}
+                    </div>
+                    <div>
+                       Experience: {{ employee.years_of_experience }}
+                        <br>
+                       Age: {{ employee.years_of_experience2 }}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h2>From DB</h2>
+        <ul>
+            {% for employee in employees2 %}
+                <li>
+                    <div>
+                        {{ employee.first_name }} {{ employee.last_name }}
+                    </div>
+                    <div>
+                        {{ employee.full_name }} -> {{ employee.years_of_employment }}
+                    </div>
+                    <div>
+                        <a href="{{ employee.department.get_absolute_url }}"> {{ employee.department.name }}</a>
+                    </div>
+                    <div>
+                       Experience: {{ employee.years_of_experience }}
+                        <br>
+                       Age: {{ employee.years_of_experience2 }}
+                    </div>
+                    <a href="{% url 'delete employee' pk=employee.pk %}">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h2>{{ department.name }}</h2>
+    </div>
+    <div>
+        <ul>
+            {% for employee in employees3 %}
+                <li>
+                    <div>
+                        {{ employee.first_name }} {{ employee.last_name }}
+                    </div>
+                    <div>
+                        {{ employee.department.name }}
+                    </div>
+                    <div>
+                       Experience: {{ employee.years_of_experience }}
+                        <br>
+                       Age: {{ employee.years_of_experience2 }}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+
+</body>
+</html>
