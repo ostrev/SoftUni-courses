@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from petstagram.pets.forms import PetCreateForm, PetEditForm
+from petstagram.pets.forms import PetCreateForm, PetEditForm, PetDeleteForm
 from petstagram.pets.models import Pet
 
 
@@ -28,7 +28,7 @@ def pet_add(request):
             return redirect('profile details', pk=1)  # TODO fix this when auth
 
     context = {
-        'form': PetCreateForm()
+        'form': form
     }
     return render(request, 'pets/pet-add-page.html', context)
 
@@ -47,11 +47,24 @@ def pet_edit(request, username, pet_name):
     context = {
         'form': form,
         'username': username,
-        'pet_slug': pet_name,
+        'pet_name': pet_name,
     }
 
     return render(request, 'pets/pet-edit-page.html', context)
 
 
 def pet_delete(request, username, pet_name):
-    return render(request, 'pets/pet-delete-page.html')
+    instance = Pet.objects.filter(slug=pet_name).get()
+    if request.method == 'GET':
+        form = PetDeleteForm(instance=instance)
+    else:
+        form = PetDeleteForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('profile details', pk=1)
+    context = {
+        'form': form,
+        'username': username,
+        'pet_name': pet_name,
+    }
+    return render(request, 'pets/pet-delete-page.html', context)
