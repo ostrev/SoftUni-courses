@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+    <h1>Enter your new data</h1>
+
+    <!-- Profile Edit Form -->
+    <div class="form">
+        <form action="{% url 'edit profile' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+
+            <!-- Profile Edit Button -->
+            <input type="submit" value="Edit">
+        </form>
+    </div>
+    <!-- End Profile Edit Form -->
+
+{% endblock %}
