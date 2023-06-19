@@ -9,12 +9,13 @@ from django.db import models
 class Profile(models.Model):
     USERNAME_MAX_LEN = 15
     USERNAME_MIN_LEN = 2
+    ALPHANUMERIC_VALIDATOR_MESSAGE = 'Ensure this value contains only letters, numbers, and underscore.'
 
     username = models.CharField(
         max_length=USERNAME_MAX_LEN,
         validators=[
             MinLengthValidator(USERNAME_MIN_LEN),
-            RegexValidator('^[a-zA-Z0-9_]*$', message='Username must be Alphanumeric'),
+            RegexValidator('^[a-zA-Z0-9_]*$', message=ALPHANUMERIC_VALIDATOR_MESSAGE),
         ],
         null=False,
         blank=False,

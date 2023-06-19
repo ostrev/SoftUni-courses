@@ -13,6 +13,11 @@ class CreateProfileForm(ProfileForm):
     class Meta:
         model = Profile
         fields = '__all__'
+        widgets = {
+            'username': forms.TextInput(attrs={'placeholder': 'Username', }),
+            'email': forms.EmailInput(attrs={'placeholder': 'Email', }),
+            'age': forms.NumberInput(attrs={'placeholder': 'Age', }),
+        }
 
 
 class DeleteProfileForm(ProfileForm):
@@ -30,6 +35,21 @@ class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
         fields = '__all__'
+        labels = {
+            'album_name': 'Album Name',
+            'image_url': 'Image URL',
+        }
+
+
+class CreateAlbumForm(AlbumForm):
+    class Meta:
+        model = Album
+        fields = '__all__'
+        labels = {
+            'album_name': 'Album Name',
+            'image_url': 'Image URL',
+        }
+
         widgets = {
             'album_name': forms.TextInput(attrs={'placeholder': 'Album Name', }),
             'artist': forms.TextInput(attrs={'placeholder': 'Artist', }),
@@ -38,22 +58,24 @@ class AlbumForm(forms.ModelForm):
             'price': forms.NumberInput(attrs={'placeholder': 'Price', }), }
 
 
-class CreateAlbumForm(AlbumForm):
-    class Meta:
-        model = Album
-        fields = '__all__'
-
-
 class EditAlbumForm(AlbumForm):
     class Meta:
         model = Album
         fields = '__all__'
+        labels = {
+            'album_name': 'Album Name',
+            'image_url': 'Image URL',
+        }
 
 
 class DeleteAlbumForm(AlbumForm):
     class Meta:
         model = Album
         fields = '__all__'
+        labels = {
+            'album_name': 'Album Name',
+            'image_url': 'Image URL',
+        }
 
     def save(self, commit=True):
         if commit:
