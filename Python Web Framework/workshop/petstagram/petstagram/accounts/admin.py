@@ -1,9 +1,10 @@
-# from django.contrib import admin
-#
-# from petstagram.accounts.models import PetstagramUser
-#
-#
-# @admin.register(PetstagramUser)
-# class AdminPet(admin.ModelAdmin):
-#     # list_display = ('name', 'slug')
-#     pass
+from django.contrib import admin
+
+from django.contrib.auth import get_user_model
+
+UserModel = get_user_model()
+
+
+@admin.register(UserModel)
+class UserModelAdmin(admin.ModelAdmin):
+    pass

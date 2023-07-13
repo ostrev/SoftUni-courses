@@ -3,9 +3,9 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 from enum import Enum
 
+from petstagram.accounts.validators import validate_letters
 
-def validate_letters(value):
-    pass
+
 class ChoicesMixin:
     @classmethod
     def choices(cls):
