@@ -48,10 +48,14 @@ class PetstagramUser(auth_models.AbstractUser):
     gender = models.CharField(
         choices=Gender.choices(),
         max_length=Gender.max_length(),
-        default=Gender.DO_NOT_SHOW,
+        default='DO_NOT_SHOW',
     )
 
     profile_picture = models.URLField(
         null=True,
         blank=True,
     )
+
+    @property
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'

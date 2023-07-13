@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from petstagram.pets.forms import PetCreateForm, PetEditForm, PetDeleteForm
@@ -7,6 +8,7 @@ from petstagram.pets.models import Pet
 # Create your views here.
 
 
+@login_required
 def pet_details(request, username, pet_name):
     pet = Pet.objects.get(slug=pet_name)
     all_photos = pet.photo_set.all()
@@ -18,14 +20,18 @@ def pet_details(request, username, pet_name):
     return render(request, 'pets/pet-details-page.html', context)
 
 
+@login_required
 def pet_add(request):
     if request.method == 'GET':
         form = PetCreateForm()
     else:
         form = PetCreateForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('profile details', pk=1)  # TODO fix this when auth
+            pet = form.save(commit=False)
+            pet.user = request.user
+            pet.save()
+
+            return redirect('profile details', pk=request.user.pk)
 
     context = {
         'form': form
@@ -33,6 +39,7 @@ def pet_add(request):
     return render(request, 'pets/pet-add-page.html', context)
 
 
+@login_required
 def pet_edit(request, username, pet_name):
     # TODO use username when auth
     instance = Pet.objects.filter(slug=pet_name).get()
@@ -53,6 +60,7 @@ def pet_edit(request, username, pet_name):
     return render(request, 'pets/pet-edit-page.html', context)
 
 
+@login_required
 def pet_delete(request, username, pet_name):
     instance = Pet.objects.filter(slug=pet_name).get()
     if request.method == 'GET':

@@ -11,7 +11,9 @@ class PhotoBaseForm(forms.ModelForm):
 
 
 class PhotoCreateForm(PhotoBaseForm):
-    pass
+    class Meta:
+        model = Photo
+        fields = ['photo', 'description', 'location', 'tagged_pets']
 
 
 class PhotoEditForm(PhotoBaseForm):
