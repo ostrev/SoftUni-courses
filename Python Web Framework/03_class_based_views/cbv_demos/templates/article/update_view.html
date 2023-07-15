@@ -1,0 +1,6 @@
+<form action="{% url 'update article' object.pk %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button>Update</button>
+
+</form>
