@@ -1,21 +1,26 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
+from petstagram.accounts.models import PetstagramUser
 from petstagram.pets.forms import PetCreateForm, PetEditForm, PetDeleteForm
 from petstagram.pets.models import Pet
 
 
-# Create your views here.
+UserModel = get_user_model()
 
 
 @login_required
 def pet_details(request, username, pet_name):
     pet = Pet.objects.get(slug=pet_name)
+    owner = PetstagramUser.objects.get(username=username)
     all_photos = pet.photo_set.all()
 
     context = {
         'pet': pet,
         'all_photos': all_photos,
+
+        'owner': owner,
     }
     return render(request, 'pets/pet-details-page.html', context)
 

@@ -11,6 +11,7 @@
             <div class="personal">
                 <div class="edit">
                     <p>{{ object.username }}</p>
+{#                    {% if owner == request.user %}#}
                     <a href="{% url 'profile edit ' pk=object.pk %}">
                         <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}" alt="edit button">
                     </a>
@@ -18,6 +19,7 @@
                     <a href="{% url 'profile delete' pk=object.pk %}">
                         <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}" alt="bin button">
                     </a>
+{#                    {% endif %}#}
 
                 </div>
                 <div class="data">
@@ -27,11 +29,11 @@
                     <p>photos</p>
 
                     <!-- Total Number of Pets owned by the User -->
-                    <span>7</span>
+                    <span>{{ pets.count }}</span>
                     <p>pets</p>
 
                     <!-- Total Number of Likes for the User -->
-                    <span>436</span>
+                    <span>{{ total_likes_count }}</span>
                     <p>likes</p>
                 </div>
                 <!-- User First and Last Name IF Added -->

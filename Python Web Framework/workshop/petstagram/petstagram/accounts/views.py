@@ -50,10 +50,17 @@ class ProfileDetailView(views.DetailView):
 
         if self.object.profile_picture is not None:
             profile_image = self.object.profile_picture
+        total_likes_count = sum(p.like_set.count() for p in self.object.photo_set.all())
 
         context = super().get_context_data(**kwargs)
         context['profile_image'] = profile_image
+
         context['pets'] = self.request.user.pet_set.all()
+        context.update({
+            'total_likes_count': total_likes_count,
+
+
+        })
 
         return context
 
@@ -69,3 +76,8 @@ class ProfileEditView(views.UpdateView):
 
 class ProfileDeleteView(views.DeleteView):
     template_name = 'accounts/profile-delete-page.html'
+    model = PetstagramUser
+    next_page = reverse_lazy('index')
+
+    def post(self, *args, pk):
+        self.request.user.delete()

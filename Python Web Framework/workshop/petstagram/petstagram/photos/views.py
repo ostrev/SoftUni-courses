@@ -14,12 +14,14 @@ def photo_details(request, pk):
     photo = Photo.objects.get(pk=pk)
     comment_form = CommentForm()
     likes = photo.like_set.all()
+    photo_is_liked_by_user = likes.filter(user=request.user)
     comments = photo.comment_set.all()
     context = {
         'photo': photo,
         "likes": likes,
         'comments': comments,
-        'comment_form': comment_form
+        'comment_form': comment_form,
+        'photo_is_liked_by_user': photo_is_liked_by_user,
     }
     return render(request, 'photos/photo-details-page.html', context)
 
