@@ -1,0 +1,8 @@
+<a href="{% url 'login' %}">Login</a>
+<h1>INDEX TWO</h1>
+{% csrf_token %}
+{{ csrf_token }}
+<div>
+    {{ user }}
+    {{ user.is_authenticated }}
+</div>
