@@ -1,0 +1,13 @@
+<h1>Index page</h1>
+
+<h3>{{ request.user }}</h3>
+<div>
+    <a href="{% url 'list view' %}"> See users</a>
+</div>
+<div>
+    <a href="{% url 'logout user' %}">Logout</a>
+</div>
+<div>
+    <a href="{% url 'login user' %}">Login in</a>
+</div>
+

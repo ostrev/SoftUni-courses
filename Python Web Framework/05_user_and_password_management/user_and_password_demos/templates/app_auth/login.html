@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h2>{{ request.user }}</h2>
+
+<form action="{% url 'login user' %}" method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <div>
+        <button>Login</button>
+        <a href="{% url 'register user' %}"> Register</a>
+    </div>
+    <input type="hidden" value="{{ next }}" name="next">
+</form>
+
+<a href="{% url 'list view' %}">List of users</a>
+
+{% endblock %}
